@@ -3,31 +3,12 @@
   (:require [org.httpkit.server :as server]
             [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.reload :as reload]))
-
-(defn fps-handler [req]
-  {:status  200
-   :headers {"Content-Type" "text/html"}
-   :body    "Pew pew!"})
-
-(defn mail-man []
-  "{\"Spongebob Narrator\": \"5 years later...\"}")
-
-(defn mail-handler [req]
-  {:status  200
-   :headers {"Content-Type" "text/json"}
-   :body    (mail-man)})
-
-(defn general-handler [req]
-  {:status  200
-   :headers {"Content-Type" "text/html"}
-   :body    "All hail General Zod!"})
+            [ring.middleware.reload :as reload]
+            [invest-monitor.authetication :as authetication]))
 
 (defroutes app-routes
-  (GET "/" [] fps-handler)
-  (POST "/postoffice" [] mail-handler)
-  (ANY "/anything-goes" [] general-handler)
-  (route/not-found "You Must Be New Here"))
+  (POST "/login" [] authetication/login)
+  (route/not-found "Not Found"))
 
 (defn -main
   "This is our app's entry point"

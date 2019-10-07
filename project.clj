@@ -7,7 +7,8 @@
                  [http-kit "2.3.0"]
                  [compojure "1.6.1"]
                  [ring/ring-core "1.6.3"]
-                 [ring/ring-devel "1.6.3"]]
+                 [ring/ring-devel "1.6.3"]
+                 [cheshire "5.9.0"]]
   :main ^:skip-aot invest-monitor.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
