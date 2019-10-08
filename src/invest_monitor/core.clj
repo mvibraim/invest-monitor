@@ -2,13 +2,10 @@
   (:gen-class)
   (:require [org.httpkit.server :as server]
             [compojure.core :refer :all]
-            [compojure.route :as route]
             [ring.middleware.reload :as reload]
-            [invest-monitor.authetication :as authetication]))
+            [invest-monitor.web.router :as router]))
 
-(defroutes app-routes
-  (POST "/login" [] authetication/login)
-  (route/not-found "Not Found"))
+(defroutes app-routes router/endpoints)
 
 (defn -main
   "This is our app's entry point"
