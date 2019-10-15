@@ -3,5 +3,6 @@ version: "3.7"
 services:
   invest_monitor_app:
     build: .
+    restart: always
     ports: 
       - "8080:8080"
