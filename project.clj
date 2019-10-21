@@ -8,7 +8,8 @@
                  [compojure "1.6.1"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-devel "1.6.3"]
-                 [cheshire "5.9.0"]]
+                 [cheshire "5.9.0"]
+                 [com.datomic/datomic-free "0.9.5697"]]
   :main ^:skip-aot invest-monitor.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

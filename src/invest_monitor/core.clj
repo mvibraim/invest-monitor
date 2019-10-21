@@ -3,7 +3,14 @@
   (:require [org.httpkit.server :as server]
             [compojure.core :refer :all]
             [ring.middleware.reload :as reload]
-            [invest-monitor.web.router :as router]))
+            [invest-monitor.web.router :as router]
+            [datomic.api :as datomic]))
+
+(def uri "datomic:free://localhost:4334/invest-monitor") #Change example to the name of your database
+
+(datomic/create-database uri)
+
+(def conn (datomic/connect uri))
 
 (defroutes app-routes router/endpoints)
 

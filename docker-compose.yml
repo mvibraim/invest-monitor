@@ -3,6 +3,20 @@ version: "3.7"
 services:
   invest_monitor_app:
     build: .
+    container_name: invest_monitor_app
     restart: always
     ports: 
       - "8080:8080"
+    depends_on:
+      - datomic
+
+  datomic:
+    image: akiel/datomic-free
+    container_name: datomic
+    environment:
+      - ADMIN_PASSWORD="admin"
+      - DATOMIC_PASSWORD="datomic"
+    ports:
+      - "4336:4336"
+      - "4335:4335"
+      - "4334:4334"
