@@ -1,4 +1,4 @@
-FROM clojure:openjdk-13-lein-slim-buster
+FROM clojure:openjdk-8-lein-slim-buster
 
 RUN mkdir -p /usr/src/app
 
@@ -10,6 +10,12 @@ RUN lein deps
 
 COPY . /usr/src/app
 
-RUN mv "$(lein uberjar | sed -n 's/^Created \(.*standalone\.jar\)/\1/p')" app-standalone.jar
+CMD ["lein", "run"]
 
-CMD ["java", "-jar", "app-standalone.jar"]
+# FROM openjdk:8-alpine
+
+# COPY target/uberjar/invest-monitor.jar /invest-monitor/app.jar
+
+# EXPOSE 3000
+
+# CMD ["java", "-jar", "/invest-monitor/app.jar"]

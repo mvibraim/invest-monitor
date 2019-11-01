@@ -1,8 +1,23 @@
 version: "3.7"
 
 services:
-  invest_monitor_app:
+  app:
     build: .
+    container_name: invest-monitor-app
+    restart: always
+    ports:
+      - "3000:3000"
+      - "7000:7000"
+    environment:
+      DATABASE_URL: "jdbc:postgresql://postgres-db:5432/invest_monitor_dev?user=postgres"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12-alpine
+    container_name: postgres-db
     restart: always
     ports: 
-      - "8080:8080"
+      - "5432:5432"
+    volumes:
+    - './db:/docker-entrypoint-initdb.d'
