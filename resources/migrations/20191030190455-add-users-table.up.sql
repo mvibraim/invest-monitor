@@ -1,11 +1,3 @@
-CREATE DATABASE invest_monitor_dev;
-
 CREATE TABLE users
-(id VARCHAR(20) PRIMARY KEY,
- first_name VARCHAR(30),
- last_name VARCHAR(30),
- email VARCHAR(30),
- admin BOOLEAN,
- last_login TIMESTAMP,
- is_active BOOLEAN,
+(cpf VARCHAR(30) PRIMARY KEY,
  pass VARCHAR(300));
