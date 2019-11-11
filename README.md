@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/mvibraim/invest-monitor.svg?style=svg)](https://circleci.com/gh/mvibraim/invest-monitor)
+
 # invest-monitor
 
 generated using Luminus version "3.48"
