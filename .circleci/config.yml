@@ -7,7 +7,11 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/clojure:openjdk-8-lein
+      - image: clojure:openjdk-8-lein-2.9.1-slim-buster
+        environment:
+          DATABASE_URL: "jdbc:postgresql://postgres-db:5432/invest_monitor_test?user=postgres"
+      - image: postgres:12-alpine
+        name: postgres-db
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -37,6 +41,17 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "project.clj" }}
+
+      - run:
+          name: install postgresql-client
+          command: |
+            apt update
+            apt install -y postgresql-client-11
+
+      - run:
+          name: create database
+          command: |
+            psql -h postgres-db -p 5432 -U postgres < db/02-create-test-db.sql
 
       # run tests!
       - run: lein test
