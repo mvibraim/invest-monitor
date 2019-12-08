@@ -29,9 +29,6 @@ aliases:
 
 version: 2.1
 
-# orbs:
-#   lein-nvd: circleci/lein-nvd@0.0.2
-
 jobs:
   build:
     docker:
@@ -52,9 +49,9 @@ jobs:
           
       - save_cache: *save-cache
 
-      # # check vulnerabilities
-      # - lein-nvd/run_lein_nvd:
-      #     suppressions_file: ""
+      - run: 
+          name: check vulnerabilities
+          command: lein nvd check
 
       - run: 
           name: compile
