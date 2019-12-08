@@ -39,7 +39,6 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache: *restore-cache
           
       - run: *install-dependencies
@@ -63,7 +62,6 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache: *restore-cache
 
       - run: *install-dependencies
