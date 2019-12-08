@@ -71,6 +71,9 @@ jobs:
     <<: *defaults
 
     steps:
+      - attach_workspace:
+          at: ~/repo
+
       - restore_cache: *restore-cache
 
       - run: *install-dependencies
