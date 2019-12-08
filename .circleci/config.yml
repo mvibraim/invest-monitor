@@ -3,30 +3,31 @@
 # Check https://circleci.com/docs/2.0/language-clojure/ for more details
 #
 
-defaults: &defaults
-  working_directory: ~/repo
+defaults:
+  - &defaults
+    working_directory: ~/repo
 
-  environment:
-    LEIN_ROOT: "true"
-    # Customize the JVM maximum heap limit
-    JVM_OPTS: -Xmx3200m
+    environment:
+      LEIN_ROOT: "true"
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
 
-aliases:
-  - &restore-cache
-    keys:
+  - &deal-with-cache-and-dependecies
+    - restore_cache:
+      keys:
       - v1-dependencies-{{ checksum "project.clj" }}
       # fallback to using the latest cache if no exact match is found
       - v1-dependencies-
-
-  - &save-cache
-    paths:
-      - ~/.m2
-    key: v1-dependencies-{{ checksum "project.clj" }}
-
-  - &install-dependencies
-    name: install dependencies
-    command: lein deps
-
+          
+    - run:
+      name: install dependencies
+      command: lein deps
+        
+    - save_cache:
+      paths:
+        - ~/.m2
+      key: v1-dependencies-{{ checksum "project.clj" }}
+    
 version: 2.1
 
 jobs:
@@ -40,11 +41,7 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache: *restore-cache
-          
-      - run: *install-dependencies
-          
-      - save_cache: *save-cache
+      <<: *deal-with-cache-and-dependecies
 
       - run: 
           name: compile
@@ -64,11 +61,7 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache: *restore-cache
-
-      - run: *install-dependencies
-
-      - save_cache: *save-cache
+      <<: *deal-with-cache-and-dependecies
 
       - run:
           name: install postgresql-client
