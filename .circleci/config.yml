@@ -44,15 +44,13 @@ jobs:
           
       - run: 
           name: install dependencies
-          command: |
-            lein deps
+          command: lein deps
 
       - save_cache: *save-cache
 
       - run: 
-          name: run tests
-          command: |
-            lein compile
+          name: compile
+          command: lein compile
 
   test:
     <<: *defaults
@@ -65,8 +63,7 @@ jobs:
 
       - run: 
           name: install dependencies
-          command: |
-            lein deps
+          command: lein deps
 
       - save_cache: *save-cache
 
@@ -78,16 +75,14 @@ jobs:
 
       - run:
           name: create database
-          command: |
-            psql -h postgres-db -p 5432 -U postgres < db/02-create-test-db.sql
+          command: psql -h postgres-db -p 5432 -U postgres < db/02-create-test-db.sql
 
       - run: 
           name: run tests
-          command: |
-            lein test
+          command: lein test
 
 workflows:
-  version: 2.1
+  version: 2
 
   build-and-test:
     jobs:
