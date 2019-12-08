@@ -43,8 +43,8 @@ jobs:
       - checkout
 
       - persist_to_workspace:
-        root: ~/repo
-        paths: .
+          root: ~/repo
+          paths: .
 
       - restore_cache: *restore-cache
           
