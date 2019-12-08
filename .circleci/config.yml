@@ -50,7 +50,7 @@ jobs:
 
       # check vulnerabilities
       - lein-nvd/run_lein_nvd:
-        - suppressions_file: ""
+        suppressions_file: ""
 
       - run: 
           name: compile
