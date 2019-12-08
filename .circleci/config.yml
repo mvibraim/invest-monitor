@@ -30,6 +30,10 @@ aliases:
       - ~/.m2
     key: v1-dependencies-{{ checksum "project.clj" }}
 
+  - &install-dependencies
+    name: install dependencies
+    command: lein deps
+
 version: 2.1
 
 jobs:
@@ -42,10 +46,8 @@ jobs:
       # Download and cache dependencies
       - restore_cache: *restore-cache
           
-      - run: 
-          name: install dependencies
-          command: lein deps
-
+      - run: *install-dependencies
+          
       - save_cache: *save-cache
 
       - run: 
@@ -61,9 +63,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache: *restore-cache
 
-      - run: 
-          name: install dependencies
-          command: lein deps
+      - run: *install-dependencies
 
       - save_cache: *save-cache
 
@@ -82,7 +82,7 @@ jobs:
           command: lein test
 
 workflows:
-  version: 2
+  version: 2.1
 
   build-and-test:
     jobs:
