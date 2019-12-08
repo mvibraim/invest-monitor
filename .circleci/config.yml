@@ -12,6 +12,7 @@ defaults:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
 
+  # Download and cache dependencies
   - &deal-with-cache-and-dependecies
     - restore_cache:
       keys:
@@ -40,8 +41,7 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
-      <<: *deal-with-cache-and-dependecies
+      *deal-with-cache-and-dependecies
 
       - run: 
           name: compile
@@ -60,8 +60,7 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
-      <<: *deal-with-cache-and-dependecies
+      *deal-with-cache-and-dependecies
 
       - run:
           name: install postgresql-client
