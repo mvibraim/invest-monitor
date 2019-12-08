@@ -48,9 +48,7 @@ jobs:
           
       - save_cache: *save-cache
 
-      - run: 
-          name: check vulnerabilities
-          command: lein-nvd/run_lein_nvd
+      - lein-nvd/run_lein_nvd
 
       - run: 
           name: compile
