@@ -42,7 +42,7 @@ jobs:
     steps:
       - checkout
 
-      - persist_to_workspace
+      - persist_to_workspace:
         root: ~/repo
         paths: .
 
