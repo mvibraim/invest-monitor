@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-clojure/ for more details
 #
-version: 2
+
+version: 2.1
+
 jobs:
   build:
     docker:
@@ -35,7 +37,10 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: lein deps
+      - run: 
+          name: install dependencies
+          command: |
+            lein deps
 
       - save_cache:
           paths:
@@ -53,5 +58,7 @@ jobs:
           command: |
             psql -h postgres-db -p 5432 -U postgres < db/02-create-test-db.sql
 
-      # run tests!
-      - run: lein test
+      - run: 
+          name: run tests
+          command: |
+            lein test
