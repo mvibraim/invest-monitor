@@ -10,12 +10,12 @@ RUN lein deps
 
 COPY . /usr/src/app
 
+EXPOSE 3000
+
 CMD ["lein", "run"]
 
 # FROM openjdk:8-alpine
 
 # COPY target/uberjar/invest-monitor.jar /invest-monitor/app.jar
-
-# EXPOSE 3000
 
 # CMD ["java", "-jar", "/invest-monitor/app.jar"]

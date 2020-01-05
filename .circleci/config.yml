@@ -30,7 +30,7 @@ aliases:
 version: 2.1
 
 orbs:
-  gcr: circleci/gcp-gcr@0.6.1
+  gcp-gke: circleci/gcp-gke@1.0.1
 
 jobs:
   build:
@@ -90,28 +90,20 @@ jobs:
           name: run tests
           command: lein test
 
-  push-image:
-    description: Build and push image to Google Container Registry
-    machine: true
-    steps:
-      - checkout
-      - gcr/gcr-auth
-      - gcr/build-image:
-          image: invest-monitor-gke
-          tag: "v2"
-      - gcr/push-image:
-          image: invest-monitor-gke
-          tag: "v2"
-
 workflows:
   version: 2.1
 
-  build-test-push:
+  build-test-deploy:
     jobs:
       - build
       - test:
           requires:
             - build
-      - push-image:
+      - gcp-gke/publish-and-rollout-image:
+          cluster: invest-monitor-cluster
+          container: invest-monitor
+          deployment: invest-monitor
+          image: invest-monitor-gke
+          tag: v3
           requires:
             - test
