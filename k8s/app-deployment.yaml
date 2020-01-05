@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: invest-monitor
+  labels:
+    app: invest-monitor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: invest-monitor
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: invest-monitor
+    spec:
+      containers:
+        - image: gcr.io/invest-monitor-261603/invest-monitor-gke:v1
+          name: invest-monitor
+          ports:
+            - containerPort: 3000
